@@ -1,0 +1,22 @@
+name: Upload Website
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: jakejarvis/s3-sync-action@master
+      with:
+        args: --acl private --follow-symlinks --delete
+      env:
+        AWS_S3_BUCKET: ${{ secrets.cloud-resume2025  }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AKIA53QIAXFYLDXS33UL }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.IHlRxSY9qWT/ZeFQ3oeplySjYwix/k3s10R3MQi0 }}
+        AWS_REGION: 'us-east-1'
+        SOURCE_DIR: 'website'
